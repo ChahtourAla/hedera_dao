@@ -1,38 +1,42 @@
-.App {
-  text-align: center;
+/* GlobalStyles.css */
+
+/* Base title styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Consistent font family */
+  color: #333; /* Dark grey for high contrast */
+  margin-top: 20px; /* Ensure spacing above titles */
+  margin-bottom: 10px; /* Ensure spacing below titles */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  font-size: 2.25rem; /* 36px */
+  font-weight: bold;
+  color: #08f; /* Aragon brand color for primary titles */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h2 {
+  font-size: 1.75rem; /* 28px */
+  font-weight: bold;
+  color: #34495e; /* Slightly muted compared to h1 */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h3 {
+  font-size: 1.5rem; /* 24px */
+  font-weight: normal;
+  color: #34495e; /* Consistent with h2 but lighter weight */
 }
 
-.App-link {
-  color: #61dafb;
+h4,
+h5,
+h6 {
+  font-size: 1.25rem; /* 20px */
+  font-weight: normal;
+  color: #555; /* Even more muted for less emphasis */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* Additional styles for specific needs can be added here */

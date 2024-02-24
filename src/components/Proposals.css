@@ -1,0 +1,94 @@
+/* Proposals.css */
+.proposals {
+  padding: 40px;
+  background-color: #f7f8fa; /* Light gray background */
+  min-height: 100vh;
+}
+
+.proposals h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.proposal-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.proposal-item {
+  background-color: #fff; /* White background */
+  border: 1px solid #ececec; /* subtle border */
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+}
+
+.proposal-item h2 {
+  color: #08f; /* Brand color for titles */
+}
+
+.proposal-item p {
+  color: #666; /* Medium Gray */
+}
+
+.add-proposal-button {
+  background-color: #34495e; /* Consistent with other buttons */
+  margin-bottom: 20px; /* Spacing before the list */
+  display: block; /* To fill the container width */
+  width: 100%; /* Full-width button */
+}
+
+.view-history-button {
+  background-color: #4e5d6c; /* A unique color that fits the design */
+  color: #fff;
+  padding: 10px 20px;
+  margin-bottom: 20px; /* Spacing from the top of the list */
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: block; /* Center the button */
+  width: auto; /* Auto-width based on content */
+  margin-left: auto; /* Align to the right */
+  margin-right: auto; /* Align to the right */
+}
+
+.view-history-button:hover {
+  background-color: #3e4f5e; /* Slightly darker on hover */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.view-votes-button {
+  background-color: #3498db; /* A shade of blue that stands out */
+  margin-left: auto;
+}
+
+/* Style for the votes modal */
+.votes-modal .modal-header {
+  background-color: white; /* Dark header for the modal */
+  color: #08f;
+}
+
+.votes-modal .modal-body {
+  background-color: #ecf0f1; /* Light body for contrast */
+  color: #333;
+}
+
+.vote-detail {
+  border-bottom: 1px solid #ccc; /* Separate vote details */
+  padding: 10px;
+}
+
+.vote-detail:last-child {
+  border-bottom: none; /* Remove border from the last detail */
+}
+
+.vote-detail p {
+  margin: 5px 0; /* Spacing for readability */
+}

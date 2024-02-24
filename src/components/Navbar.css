@@ -1,0 +1,51 @@
+/* Navbar.css */
+.navbar {
+  background-color: #fff; /* White background */
+  color: #333; /* Dark text for contrast */
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+}
+
+.nav-logo {
+  font-weight: bold;
+  font-size: 24px;
+  color: #333;
+  text-decoration: none;
+}
+
+.nav-logo-highlight {
+  color: #08f; /* Aragon's brand color for highlight */
+}
+
+.nav-links {
+  display: flex;
+}
+
+.nav-item {
+  color: #333;
+  text-decoration: none;
+  margin-right: 20px;
+  transition: color 0.3s ease;
+}
+
+.nav-item:hover,
+.nav-item:focus {
+  color: #08f; /* Highlight color on hover */
+}
+
+.nav-button {
+  background-color: #08f; /* Brand color */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #06c; /* Darker shade on hover */
+}

@@ -1,0 +1,48 @@
+/* Button.css */
+
+.button {
+  background-color: #08f; /* Aragon's brand color for buttons */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  outline: none;
+  margin: 10px 0; /* Added margin for spacing */
+}
+
+.button:hover {
+  background-color: #06c; /* A darker shade for hover state */
+  transform: translateY(-2px); /* Slight raise effect on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.button:active {
+  background-color: #05a; /* Even darker for active state */
+  transform: translateY(1px); /* Depress effect on click */
+  box-shadow: none;
+}
+
+/* Specific styles for the vote button in the proposal list */
+.proposal-item .button {
+  background-color: #34495e; /* Darker blue/grey */
+}
+
+.proposal-item .button:hover {
+  background-color: #2c3e50;
+}
+
+/* Specific styles for the submit vote button in the modal */
+.modal .button {
+  background-color: #27ae60; /* Green for submit actions */
+  width: 100%; /* Full-width for better UX in modal context */
+}
+
+.modal .button:hover {
+  background-color: #219150;
+}

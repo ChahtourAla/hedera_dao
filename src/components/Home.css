@@ -1,0 +1,76 @@
+/* Home.css */
+
+.home-header {
+  background-color: #f7f7f7; /* Lighter gray for header */
+  color: #333; /* Dark text for contrast */
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.home-header h1 {
+  color: #007bff; /* Vibrant Blue for the main title */
+}
+
+.get-started {
+  background-color: #ffffff; /* White for primary action area */
+  color: #333; /* Dark text for contrast */
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.get-started-link {
+  background-color: #08f; /* Aragon brand color for the button */
+  color: white;
+  padding: 12px 24px;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block; /* Allows padding and margin to be applied correctly */
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.get-started-link:hover {
+  background-color: #06c; /* Slightly darker on hover */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.features {
+  padding: 20px;
+  background-color: #f7f7f7; /* Lighter gray for features background */
+}
+
+.features h2 {
+  text-align: left;
+  margin-left: 20px; /* Adjust as needed to align with the content */
+}
+
+.features-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.feature {
+  background-color: #ffffff; /* White for feature cards */
+  color: #333; /* Dark text for contrast */
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer; /* Optional: if the feature cards are clickable */
+}
+
+.feature:hover {
+  transform: translateY(-5px); /* Lift the card up slightly */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Add a deeper shadow to create a "lifting" effect */
+}
+
+.feature h3 {
+  color: #007bff; /* Electric Green for feature titles */
+}
