@@ -8,7 +8,8 @@ contract LightencyDAO {
     struct Vote {
         address voter;
         bool approve;
-        string comment;
+        bytes32 comment;
+        bool hasVoted; 
     }
 
     struct Proposal {
@@ -55,7 +56,7 @@ contract LightencyDAO {
     event MemberRemoved(address member);
     event CouncilMemberAdded(address member);
     event ProposalCreated(uint256 id, string description, address recipient, uint256 amount, uint256 deadline, uint256 threshold, ProposalType proposalType);
-    event VotedOnProposal(uint256 proposalId, address voter, bool approve, string comment);
+    event VotedOnProposal(uint256 proposalId, address voter, bool approve, bytes32 comment);
     event ProposalExecuted(uint256 id, ProposalStatus status, uint256 approveCount, uint256 rejectCount);
     event DaoFunded(address sender, uint256 amount);
 
@@ -74,7 +75,6 @@ contract LightencyDAO {
         councilMembers.push(_councilMember);
         emit CouncilMemberAdded(_councilMember);
     }
-
 
     function fundDao() external payable {
         emit DaoFunded(msg.sender, msg.value);
@@ -100,7 +100,7 @@ contract LightencyDAO {
         emit MemberRemoved(_member);
     }
 
-    function createProposal(string memory _description, address payable _recipient, uint256 _amount, uint256 _deadline, uint256 _threshold, ProposalType _proposalType) external onlyMember {
+    function createProposal(string memory _description, address payable _recipient, uint256 _amount, uint256 _threshold, ProposalType _proposalType) external onlyMember {
         uint256 proposalId = proposals.length;
         proposals.push();
         Proposal storage newProposal = proposals[proposalId];
@@ -111,19 +111,19 @@ contract LightencyDAO {
         newProposal.approveCount = 0;
         newProposal.rejectCount = 0;
         newProposal.executed = false;
-        newProposal.deadline = _deadline;
+        newProposal.deadline = block.timestamp + 24 hours;
         newProposal.threshold = _threshold;
         newProposal.status = ProposalStatus.Pending;
         newProposal.proposalType = _proposalType;
-        emit ProposalCreated(proposalId, _description, _recipient, _amount, _deadline, _threshold, _proposalType);
+        emit ProposalCreated(proposalId, _description, _recipient, _amount, newProposal.deadline, _threshold, _proposalType);
     }
 
-    function voteOnProposal(uint256 _proposalIndex, bool approve, string memory comment) external onlyMember {
+    function voteOnProposal(uint256 _proposalIndex, bool approve, bytes32 comment) external onlyMember {
         require(_proposalIndex < proposals.length, "Proposal does not exist");
         Proposal storage proposal = proposals[_proposalIndex];
         require(block.timestamp < proposal.deadline, "Voting period has ended");
         require(!proposal.executed, "Proposal already executed");
-        require(bytes(proposal.votes[msg.sender].comment).length == 0, "Already voted");
+        require(!proposal.votes[msg.sender].hasVoted, "Already voted"); 
 
         if (approve) {
             proposal.approveCount += 1;
@@ -131,7 +131,7 @@ contract LightencyDAO {
             proposal.rejectCount += 1;
         }
 
-        proposal.votes[msg.sender] = Vote(msg.sender, approve, comment);
+        proposal.votes[msg.sender] = Vote(msg.sender, approve, comment, true); 
 
         emit VotedOnProposal(_proposalIndex, msg.sender, approve, comment);
     }
@@ -178,47 +178,27 @@ contract LightencyDAO {
         return allMembers;
     }
 
-    function getAllProposalsInfo() external view returns (ProposalInfo[] memory) {
-        ProposalInfo[] memory infos = new ProposalInfo[](proposals.length);
-        for (uint i = 0; i < proposals.length; i++) {
-            Proposal storage proposal = proposals[i];
-            infos[i] = ProposalInfo({
-                id: proposal.id,
-                description: proposal.description,
-                recipient: proposal.recipient,
-                amount: proposal.amount,
-                approveCount: proposal.approveCount,
-                rejectCount: proposal.rejectCount,
-                executed: proposal.executed,
-                deadline: proposal.deadline,
-                threshold: proposal.threshold,
-                status: proposal.status,
-                proposalType: proposal.proposalType
-            });
-        }
-        return infos;
-    }
 
-    function getVotesForProposal(uint256 proposalId) external view returns (address[] memory, bool[] memory, string[] memory) {
+    function getVotesForProposal(uint256 proposalId) external view returns (address[] memory, bool[] memory, bytes32[] memory) {
         require(proposalId < proposals.length, "Proposal does not exist");
 
         // Temporary solution to count votes due to lack of direct mapping length access
         uint256 voteCount = 0;
         for (uint256 i = 0; i < simpleMembers.length + councilMembers.length; i++) {
             address member = i < simpleMembers.length ? simpleMembers[i] : councilMembers[i - simpleMembers.length];
-            if (bytes(proposals[proposalId].votes[member].comment).length > 0) {
+            if (proposals[proposalId].votes[member].hasVoted) {
                 voteCount++;
             }
         }
 
         address[] memory voters = new address[](voteCount);
         bool[] memory approvals = new bool[](voteCount);
-        string[] memory comments = new string[](voteCount);
+        bytes32[] memory comments = new bytes32[](voteCount);
 
         uint256 index = 0;
         for (uint256 i = 0; i < simpleMembers.length + councilMembers.length; i++) {
             address member = i < simpleMembers.length ? simpleMembers[i] : councilMembers[i - simpleMembers.length];
-            if (bytes(proposals[proposalId].votes[member].comment).length > 0) {
+            if (proposals[proposalId].votes[member].hasVoted) {
                 voters[index] = member;
                 approvals[index] = proposals[proposalId].votes[member].approve;
                 comments[index] = proposals[proposalId].votes[member].comment;
