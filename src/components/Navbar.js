@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
@@ -15,7 +15,9 @@ function Navbar({ connectWallet, disconnectWallet, accountId }) {
         <Link to="/proposals" className="nav-item">
           Proposals
         </Link>
-        {/* More nav items can be added here */}
+        <Link to="/members" className="nav-item">
+          Members
+        </Link>
       </div>
       {accountId ? (
         <button onClick={disconnectWallet} className="nav-button">

@@ -141,10 +141,9 @@ contract LightencyDAO {
         Proposal storage proposal = proposals[_proposalIndex];
         require(block.timestamp > proposal.deadline, "Proposal deadline has not passed");
         require(!proposal.executed, "Proposal already executed");
-
+        proposal.executed = true;
         uint256 votesNeeded = (councilMembers.length + simpleMembers.length) * proposal.threshold / 100;
         if (proposal.approveCount >= votesNeeded && proposal.approveCount > proposal.rejectCount) {
-            proposal.executed = true;
             if (proposal.proposalType == ProposalType.Financial) {
                 proposal.recipient.transfer(proposal.amount);
             }
@@ -178,6 +177,26 @@ contract LightencyDAO {
         return allMembers;
     }
 
+    function getAllProposals() external view returns (ProposalInfo[] memory) {
+        ProposalInfo[] memory infos = new ProposalInfo[](proposals.length);
+        for (uint i = 0; i < proposals.length; i++) {
+            Proposal storage proposal = proposals[i];
+            infos[i] = ProposalInfo({
+                id: proposal.id,
+                description: proposal.description,
+                recipient: proposal.recipient,
+                amount: proposal.amount,
+                approveCount: proposal.approveCount,
+                rejectCount: proposal.rejectCount,
+                executed: proposal.executed,
+                deadline: proposal.deadline,
+                threshold: proposal.threshold,
+                status: proposal.status,
+                proposalType: proposal.proposalType
+            });
+        }
+        return infos;
+    }
 
     function getVotesForProposal(uint256 proposalId) external view returns (address[] memory, bool[] memory, bytes32[] memory) {
         require(proposalId < proposals.length, "Proposal does not exist");

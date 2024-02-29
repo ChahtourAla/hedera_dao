@@ -103,11 +103,10 @@ function Proposals(props) {
       const amountInTinybar = Number(newAmount);
       await createProposal(
         props.connector,
-        "0.0.3559131".toString(),
+        "0.0.3617300".toString(),
         newProposalDescription,
         newReceipient,
         amountInTinybar,
-        Math.floor(Date.now() / 1000) + 24 * 3600,
         50,
         proposalType
       );

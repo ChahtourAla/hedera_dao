@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Proposals from "./components/Proposals";
 import HistoricalProposals from "./components/HistoricalProposals";
+import Members from "./components/Members";
 import "./App.css";
 import { BladeConnector, ConnectorStrategy } from "@bladelabs/blade-web3.js";
 
@@ -86,6 +87,10 @@ function App() {
           <Route
             path="/historical-proposals"
             element={<HistoricalProposals />}
+          />
+          <Route
+            path="/members"
+            element={<Members connector={bladeConnector} />}
           />
         </Routes>
       </div>
